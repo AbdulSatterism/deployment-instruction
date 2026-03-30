@@ -215,4 +215,45 @@ systemctl reload nginx  # NGINX রিলোড দিতে
 
 ```bash
 certbot renew --dry-run   # অটো রিনিউ ঠিকঠাক হচ্ছে কি না দেখতে
+
+
+✅ Step 2: Install Necessary Software in VPS
+Copy and run:
+
+apt update && apt upgrade -y
+apt install -y nginx curl unzip git certbot python3-certbot-nginx
+
+curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
+apt install -y nodejs
+npm i -g pm2
+
+systemctl enable nginx
+systemctl start nginx
+👉 This installs all required packages & starts NGINX.
+
+✅ Step 3: Upload Your Projects (Drag & Drop)
+In VS Code, open /var/www/ folder.
+
+Drag your project folders here:
+
+Project	Upload To
+Frontend (React)	/var/www/frontend
+Backend (Node.js)	/var/www/backend
+Dashboard (React)	/var/www/dashboard
+Then go inside each folder and run:
+
+npm install
+✅ Step 4: Run Projects Using PM2
+cd /var/www/frontend
+pm2 start npm --name frontend -- start
+
+cd /var/www/backend
+pm2 start npm --name backend -- start
+
+cd /var/www/dashboard
+pm2 start npm --name dashboard -- start
+Save and enable autostart:
+
+pm2 save
+pm2 startup
 ```
